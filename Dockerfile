@@ -20,5 +20,4 @@ COPY index.js .
 
 RUN chmod 777 /home/node/app
 
-USER node
 CMD ["node", "/home/node/app/index.js"]
