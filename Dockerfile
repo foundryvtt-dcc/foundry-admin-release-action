@@ -9,6 +9,8 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+USER node
+
 WORKDIR /home/node/app
 
 COPY package.json .
