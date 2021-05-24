@@ -54,9 +54,10 @@ async function updateFoundryAdmin (manifestURL, notesURL, compatVersion, minVers
 async function run () {
   // Get values for release
   const latestRelease = await getReleaseInfo()
-  console.log(latestRelease)
+  const notesURL = latestRelease.data.html_url
+  console.log(notesURL)
   const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
-  await download(manifestURL, `./${manifestFileName}`)
+  await download(manifestURL)
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
   console.log(manifest.minimumCoreVersion)
