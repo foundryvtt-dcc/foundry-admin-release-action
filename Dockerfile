@@ -9,8 +9,6 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-USER node
-
 WORKDIR /home/node/app
 
 COPY package.json .
@@ -20,4 +18,5 @@ RUN npm install
 COPY action.yml .
 COPY index.js .
 
+USER node
 CMD ["node", "/home/node/app/index.js"]
