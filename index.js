@@ -57,7 +57,7 @@ async function run () {
   const notesURL = latestRelease.data.html_url
   console.log(notesURL)
   const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
-  await download(manifestURL)
+  await download(manifestURL, `./${manifestFileName}`)
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
   console.log(manifest.minimumCoreVersion)
