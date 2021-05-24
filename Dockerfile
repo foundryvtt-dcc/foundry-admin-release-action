@@ -1,9 +1,10 @@
 FROM node:14-slim
 
-WORKDIR /home/node/app
+RUN mkdir /github && RUN mkdir /github/workspace
+WORKDIR /github/workspace
 
 COPY . .
 
 RUN npm install
 
-ENTRYPOINT ["npm", "start"]
+CMD ["npm", "start"]
