@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 const core = require('@actions/core')
 const download = require('download')
 const fs = require('fs')
@@ -58,16 +60,16 @@ async function run () {
   console.log(notesURL)
   const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
   await download(manifestURL, `.`)
-  fs.readdirSync(".").forEach(file => {
-    console.log(file);
-  });
+  fs.readdirSync('.').forEach(file => {
+    console.log(file)
+  })
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
   console.log(manifest.minimumCoreVersion)
   console.log(manifest.compatibleCoreVersion)
   console.log(manifest.manifest)
 
-  // await updateFoundryAdmin(manifestURL, notesURL, compatVersion, minVersion)
+  await updateFoundryAdmin(manifestURL, notesURL, compatVersion, minVersion)
 }
 
 run()
