@@ -57,11 +57,8 @@ async function run () {
   const notesURL = latestRelease.data.html_url
   console.log(notesURL)
   const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
-  await download(manifestURL, `./${manifestFileName}`)
+  await download(manifestURL, `.`)
   fs.readdirSync(".").forEach(file => {
-    console.log(file);
-  });
-  fs.readdirSync("./module.json").forEach(file => {
     console.log(file);
   });
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
