@@ -61,6 +61,9 @@ async function run () {
   fs.readdirSync(".").forEach(file => {
     console.log(file);
   });
+  fs.readdirSync("./module.json").forEach(file => {
+    console.log(file);
+  });
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
   console.log(manifest.minimumCoreVersion)
