@@ -1,4 +1,4 @@
-// noinspection JSUnresolvedVariable
+// noinspection JSUnresolvedVariable,JSIgnoredPromiseFromCall
 
 const core = require('@actions/core')
 const download = require('download')
@@ -59,15 +59,11 @@ async function run () {
   const notesURL = latestRelease.data.html_url
   console.log(notesURL)
   const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
-  await download(manifestURL, `.`)
-  fs.readdirSync('.').forEach(file => {
-    console.log(file)
-  })
+  await download(manifestURL, '.')
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
-  console.log(manifest.minimumCoreVersion)
-  console.log(manifest.compatibleCoreVersion)
-  console.log(manifest.manifest)
+  const minVersion = manifest.minimumCoreVersion
+  const compatVersion = manifest.compatibleCoreVersion
 
   await updateFoundryAdmin(manifestURL, notesURL, compatVersion, minVersion)
 }
