@@ -1,5 +1,7 @@
 FROM node:14
 
+RUN apt-get libnss3
+
 WORKDIR /home/node/app
 
 COPY package.json .
