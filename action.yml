@@ -1,15 +1,27 @@
 name: 'Foundry Release Upload Action'
 description: 'GitHub Action to Upload Foundry VTT Manifest and Zip After a Release'
 inputs:
-  foundryAdminUsername:
-    description: 'Username to log into the Foundry Django Admin backend'
+  actionToken:
+    description: 'Github Token'
     required: true
+    default: 'World'
   foundryAdminPassword:
     description: 'Password to log into the Foundry Django Admin backend'
+    required: true
+  foundryAdminUsername:
+    description: 'Username to log into the Foundry Django Admin backend'
     required: true
   foundryAdminPackageURL:
     description: 'URL to the individual edit page of your package. Should be like https://foundryvtt.com/admin/packages/package/xxxx/change/'
     required: true
+  manifestFileName:
+    description: 'Name of the Foundry Manifest File, either system.json or module.json'
+    required: true
+    default: 'module.json'
+  manifestProtectedTrue:
+    description: 'Set to true if this is a protected package'
+    required: false
+    default: "false"
 runs:
   using: 'node12'
   main: 'index.js'
