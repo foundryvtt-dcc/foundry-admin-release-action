@@ -1,5 +1,6 @@
 FROM node:14
 
+RUN apt-get update
 RUN apt-get install libnss3-dev
 
 WORKDIR /home/node/app
