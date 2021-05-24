@@ -1,2 +1,2 @@
-# foundry-admin-release-action
-Create and save a release in the Foundry Admin Django Interface
+# Foundry Admin Release Action
+GitHub Action to create and save a release in the Foundry Admin Django Interface.
