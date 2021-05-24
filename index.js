@@ -64,6 +64,6 @@ async function run () {
   console.log(manifest.manifest)
 
   // await updateFoundryAdmin(manifestURL, notesURL, compatVersion, minVersion)
-
-
 }
+
+run()

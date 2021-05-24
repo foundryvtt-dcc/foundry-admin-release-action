@@ -6,4 +6,4 @@ COPY . .
 
 RUN npm install
 
-ENTRYPOINT "/home/node/app/run.sh"
+ENTRYPOINT ["/home/node/app/run.sh"]
