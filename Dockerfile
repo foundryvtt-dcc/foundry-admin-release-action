@@ -1,6 +1,6 @@
 FROM node:14
 
-RUN apt-get libnss3
+RUN apt-get install libnss3
 
 WORKDIR /home/node/app
 
