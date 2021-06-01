@@ -22,7 +22,7 @@ async function getReleaseInfo () {
   })
 }
 
-async function updateFoundryAdmin (manifestURL, notesURL, compatVersion, minVersion) {
+async function updateFoundryAdmin (manifestURL, notesURL, compatVersion, minVersion, packageVersion) {
   // Initiate the Puppeteer browser
   const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']})
   const page = await browser.newPage()
@@ -42,7 +42,7 @@ async function updateFoundryAdmin (manifestURL, notesURL, compatVersion, minVers
   console.log('Package Page URL:', page.url())
 
   // Add new package version and save
-  await page.type('table tr:nth-last-child(3) .field-version > input', '0.28')
+  await page.type('table tr:nth-last-child(3) .field-version > input', packageVersion)
   await page.type('table tr:nth-last-child(3) .field-manifest > input', manifestURL)
   await page.type('table tr:nth-last-child(3) .field-notes > input', notesURL)
   await page.type('table tr:nth-last-child(3) .field-required_core_version > input', minVersion)
@@ -64,8 +64,9 @@ async function run () {
   const manifest = JSON.parse(manifestContent.toString())
   const minVersion = manifest.minimumCoreVersion
   const compatVersion = manifest.compatibleCoreVersion
+  const packageVersion = manifest.version ? manifest.version[0] !== "0" : manifest.version.substring(1)
 
-  await updateFoundryAdmin(manifestURL, notesURL, compatVersion, minVersion)
+  await updateFoundryAdmin(manifestURL, notesURL, compatVersion, minVersion, packageVersion)
 }
 
 run()
