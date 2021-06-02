@@ -77,7 +77,8 @@ async function run () {
   const latestRelease = await getReleaseInfo()
   const notesURL = latestRelease.data.html_url
   console.log(notesURL)
-  downloadManifest = await downloadManifest(latestRelease)
+  const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
+  //TODO: Manifest URL for private packages is nothing like this ^^^
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
   const minVersion = manifest.minimumCoreVersion
