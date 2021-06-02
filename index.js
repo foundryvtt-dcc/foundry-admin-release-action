@@ -4,6 +4,7 @@ const core = require('@actions/core')
 const fs = require('fs')
 const github = require('@actions/github')
 const puppeteer = require('puppeteer')
+const shell = require('shelljs')
 
 const actionToken = core.getInput('actionToken')
 const foundryAdminUsername = core.getInput('foundryAdminUsername')
