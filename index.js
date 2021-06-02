@@ -1,7 +1,6 @@
 // noinspection JSUnresolvedVariable,JSIgnoredPromiseFromCall
 
 const core = require('@actions/core')
-const download = require('download')
 const fs = require('fs')
 const github = require('@actions/github')
 const puppeteer = require('puppeteer')
