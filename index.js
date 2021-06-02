@@ -22,6 +22,25 @@ async function getReleaseInfo () {
   })
 }
 
+async function downloadManifest(latestRelease) {
+  // Get the Asset ID of the manifest from the release info
+  let assetID = 0
+  for (const item of latestRelease.data.assets) {
+    if (item.name === manifestFileName) {
+      assetID = item.id
+    }
+  }
+  if (assetID === 0) {
+    console.log(latestRelease)
+    core.setFailed('No AssetID for manifest')
+  }
+
+  const manifestURL = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
+  console.log(manifestURL)
+  await shell.exec(`curl --header 'Authorization: token ${actionToken}' --header 'Accept: application/octet-stream' --output ${manifestFileName} --location ${manifestURL}`)
+  console.log('Past Download')
+}
+
 async function updateFoundryAdmin (manifestURL, notesURL, compatVersion, minVersion, packageVersion) {
   // Initiate the Puppeteer browser
   const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']})
@@ -58,8 +77,7 @@ async function run () {
   const latestRelease = await getReleaseInfo()
   const notesURL = latestRelease.data.html_url
   console.log(notesURL)
-  const manifestURL = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.data.tag_name}/${manifestFileName}`
-  await download(manifestURL, '.')
+  downloadManifest = await downloadManifest(latestRelease)
   const manifestContent = fs.readFileSync(`./${manifestFileName}`)
   const manifest = JSON.parse(manifestContent.toString())
   const minVersion = manifest.minimumCoreVersion
